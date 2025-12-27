@@ -1,0 +1,40 @@
+{
+    "S. No": "",
+    "brand_name": "",
+    "Founder_name": "",
+    "Founder_image": "",
+    "OLD_MRR": "",
+    "timeline": "",
+    "New_MRR": "",
+    "Cover_Image_link": "",
+    "Cover_text_1": "",
+    "body_image": "",
+    "body_text_1": "",
+    "body_image2": "",
+    "body_text_2": "",
+    "botttom_shopfiy_screenshot": "",
+    "Custom_CTA": "",
+    "SEO_meta_data": "",
+    "Category_tags": "",
+    "tag": ""
+  }
+  
+const {
+    brand_name,
+    Founder_name,
+    Founder_image,
+    OLD_MRR,
+    timeline,
+    New_MRR,
+    Cover_Image_link,
+    Cover_text_1,
+    body_image,
+    body_text_1,
+    body_image2,
+    body_text_2,
+    botttom_shopfiy_screenshot,
+    Custom_CTA,
+    SEO_meta_data,
+    Category_tags,
+    tag
+  } = data.fieldData;
