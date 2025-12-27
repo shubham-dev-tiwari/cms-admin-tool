@@ -26,210 +26,244 @@
   font-display: swap;
 }
 
-/* ----------------------------- Base styles ----------------------------- */
+:root {
+  --bg-primary: #0B0D10;
+  --bg-secondary: #12151A;
+  --surface: #1A1E24;
+  --surface-glass: rgba(26, 30, 36, 0.5);
+  
+  --text-primary: #E8EAED;
+  --text-secondary: #9BA1A8;
+  --text-tertiary: #6B7280;
+  
+  --accent-purple: #8B5CF6;
+  --accent-blue: #3B82F6;
+  --accent-pink: #EC4899;
+  --accent-cyan: #06B6D4;
+  
+  --border: rgba(255, 255, 255, 0.06);
+  --border-bright: rgba(255, 255, 255, 0.12);
+}
 
-html,
-body {
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
   height: 100%;
   overflow-x: hidden;
-}
-
-body {
-  @apply text-slate-800 antialiased;
-  background: linear-gradient(135deg, #E0E5EC 0%, #D1D9E6 100%);
-  margin: 0;
-  min-height: 100vh;
-  font-family: "NeueLeiden", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-  
-}
-
-/* ----------------------------- Glass card ------------------------------ */
-.glass {
-  background: rgba(224, 229, 236, 0.4);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border-radius: 1.5rem;
-  box-shadow: 0 8px 32px rgba(163, 177, 198, 0.2);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-/* -------------------------- Neumorphic Utilities -------------------------- */
-
-/* Flat Neumorphic */
-.neu-flat {
-  background: #E0E5EC;
-  box-shadow: 9px 9px 16px rgba(163, 177, 198, 0.6), -9px -9px 16px rgba(255, 255, 255, 0.5);
-  border-radius: 1.5rem;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-/* Pressed/Inset Neumorphic */
-.neu-pressed {
-  background: #E0E5EC;
-  box-shadow: inset 6px 6px 10px 0 rgba(163, 177, 198, 0.7), inset -6px -6px 10px 0 rgba(255, 255, 255, 0.8);
-  border-radius: 1.5rem;
-}
-
-/* Convex Neumorphic with Gradient */
-.neu-convex {
-  background: linear-gradient(135deg, #f0f5fc 0%, #caced4 100%);
-  box-shadow: 9px 9px 16px rgba(163, 177, 198, 0.6), -9px -9px 16px rgba(255, 255, 255, 0.5);
-  border-radius: 1.5rem;
-}
-
-/* Icon Button Neumorphic */
-.neu-icon-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 50px;
-  height: 50px;
-  border-radius: 9999px;
-  background: #E0E5EC;
-  box-shadow: 5px 5px 10px #a3b1c6, -5px -5px 10px #ffffff;
-  transition: all 0.3s ease;
-  color: rgb(75, 85, 99);
-}
-
-.neu-icon-btn:hover {
-  box-shadow: inset 5px 5px 10px #a3b1c6, inset -5px -5px 10px #ffffff;
-  color: #000000;
-}
-
-/* Step Circle Neumorphic */
-.neu-step-circle {
-  width: 4rem;
-  height: 4rem;
-  display: flex;
-  flex-shrink: 0;
-  align-items: center;
-  justify-content: center;
-  background: #E0E5EC;
-  border-radius: 9999px;
-  box-shadow: inset 6px 6px 10px 0 rgba(163, 177, 198, 0.7), inset -6px -6px 10px 0 rgba(255, 255, 255, 0.8);
-}
-
-/* -------------------------- Neumorphic Button -------------------------- */
-.button-neumorphic {
-  box-shadow: 9px 9px 16px rgba(163, 177, 198, 0.6), -9px -9px 16px rgba(255, 255, 255, 0.5);
-  background: #E0E5EC;
-  border-radius: 1rem;
-  transition: box-shadow 0.2s ease, transform 0.2s ease;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-.button-neumorphic:hover {
-  transform: translateY(-2px);
-  box-shadow: 12px 12px 20px rgba(163, 177, 198, 0.65), -12px -12px 20px rgba(255, 255, 255, 0.6);
-}
-
-.button-neumorphic:active {
-  box-shadow: inset 6px 6px 12px rgba(163, 177, 198, 0.6), inset -6px -6px 12px rgba(255, 255, 255, 0.5);
-  transform: translateY(0);
-}
-
-/* -------------------------- Soft Button Variant -------------------------- */
-.button-soft {
-  background: linear-gradient(145deg, #E8EDF3, #D6DCE6);
-  box-shadow: 6px 6px 12px rgba(163, 177, 198, 0.5), -6px -6px 12px rgba(255, 255, 255, 0.6);
-  border-radius: 0.75rem;
-  transition: all 0.25s ease;
-}
-
-.button-soft:hover {
-  background: linear-gradient(145deg, #EDF2F8, #DBE1EB);
-  box-shadow: 8px 8px 16px rgba(163, 177, 198, 0.55), -8px -8px 16px rgba(255, 255, 255, 0.65);
-}
-
-.button-soft:active {
-  box-shadow: inset 4px 4px 8px rgba(163, 177, 198, 0.5), inset -4px -4px 8px rgba(255, 255, 255, 0.6);
-}
-
-/* -------------------------- Card Variants -------------------------- */
-.card-elevated {
-  background: #E0E5EC;
-  box-shadow: 12px 12px 24px rgba(163, 177, 198, 0.6), -12px -12px 24px rgba(255, 255, 255, 0.5);
-  border-radius: 1.5rem;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-}
-
-.card-inset {
-  background: #E0E5EC;
-  box-shadow: inset 8px 8px 16px rgba(163, 177, 198, 0.5), inset -8px -8px 16px rgba(255, 255, 255, 0.6);
-  border-radius: 1.5rem;
-}
-
-/* -------------------------- Input Field -------------------------- */
-.input-neu {
-  background: #E0E5EC;
-  box-shadow: inset 4px 4px 8px rgba(163, 177, 198, 0.5), inset -4px -4px 8px rgba(255, 255, 255, 0.6);
-  border: 1px solid rgba(163, 177, 198, 0.2);
-  border-radius: 0.75rem;
-  padding: 0.75rem 1rem;
-  transition: all 0.2s ease;
-  color: #334155;
-}
-
-.input-neu:focus {
-  outline: none;
-  box-shadow: inset 5px 5px 10px rgba(163, 177, 198, 0.6), inset -5px -5px 10px rgba(255, 255, 255, 0.7);
-  border-color: rgba(102, 126, 234, 0.3);
-}
-
-.input-neu::placeholder {
-  color: #94a3b8;
-}
-
-/* -------------------------- Divider -------------------------- */
-.divider-neu {
-  height: 2px;
-  background: linear-gradient(90deg, 
-    rgba(163, 177, 198, 0.3) 0%, 
-    rgba(163, 177, 198, 0.6) 50%, 
-    rgba(163, 177, 198, 0.3) 100%
-  );
-  border: none;
-  margin: 2rem 0;
-}
-
-/* -------------------------- Scrollbar Styling -------------------------- */
-::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
-}
-
-::-webkit-scrollbar-track {
-  background: #E0E5EC;
-  box-shadow: inset 2px 2px 4px rgba(163, 177, 198, 0.4), inset -2px -2px 4px rgba(255, 255, 255, 0.5);
-}
-
-::-webkit-scrollbar-thumb {
-  background: linear-gradient(135deg, #D1D9E6, #C2CAD6);
-  border-radius: 10px;
-  box-shadow: 2px 2px 4px rgba(163, 177, 198, 0.3), -2px -2px 4px rgba(255, 255, 255, 0.4);
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(135deg, #C8D0DD, #B9C1CD);
-}
-
-/* -------------------------- Selection -------------------------- */
-::selection {
-  background: rgba(102, 126, 234, 0.3);
-  color: #1e293b;
-}
-
-::-moz-selection {
-  background: rgba(102, 126, 234, 0.3);
-  color: #1e293b;
-}
-
-/* -------------------------- Typography Enhancement -------------------------- */
-:root {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: "NeueLeiden", -apple-system, BlinkMacSystemFont, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-h1, h2, h3, h4, h5, h6 {
-  text-rendering: optimizeLegibility;
+body {
+  background-image: 
+    radial-gradient(at 0% 0%, rgba(139, 92, 246, 0.08) 0px, transparent 50%),
+    radial-gradient(at 100% 100%, rgba(59, 130, 246, 0.08) 0px, transparent 50%);
+}
+
+::selection {
+  background: var(--accent-purple);
+  color: white;
+}
+
+/* Glassmorphism */
+.glass {
+  background: var(--surface-glass);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid var(--border);
+}
+
+.glass-strong {
+  background: rgba(26, 30, 36, 0.7);
+  backdrop-filter: blur(30px) saturate(180%);
+  -webkit-backdrop-filter: blur(30px) saturate(180%);
+  border: 1px solid var(--border-bright);
+}
+
+/* Liquid Glass Button Effect */
+.liquid-glass-btn {
+  position: relative;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+}
+
+.liquid-glass-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  transition: left 0.5s ease;
+}
+
+.liquid-glass-btn:hover::before {
+  left: 100%;
+}
+
+.liquid-glass-btn::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, transparent 0%, rgba(139, 92, 246, 0.1) 50%, transparent 100%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.liquid-glass-btn:hover::after {
+  opacity: 1;
+}
+
+/* Liquid Glass Primary Variant */
+.liquid-glass-primary {
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(59, 130, 246, 0.2));
+  border: 1px solid rgba(139, 92, 246, 0.3);
+  box-shadow: 
+    0 4px 16px rgba(139, 92, 246, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.liquid-glass-primary:hover {
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.3), rgba(59, 130, 246, 0.3));
+  box-shadow: 
+    0 8px 24px rgba(139, 92, 246, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+/* Subtle Card Glow - Much More Refined */
+.card-refined {
+  position: relative;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.card-refined::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.15), rgba(59, 130, 246, 0.15));
+  border-radius: inherit;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: -1;
+  filter: blur(12px);
+}
+
+.card-refined:hover::before {
+  opacity: 0.5;
+}
+
+.card-refined:hover {
+  transform: translateY(-6px);
+  border-color: var(--border-bright);
+  box-shadow: 
+    0 12px 32px rgba(0, 0, 0, 0.3),
+    0 0 0 1px rgba(139, 92, 246, 0.1);
+}
+
+/* Ripple Effect */
+@keyframes ripple {
+  to {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+.ripple-effect {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.4);
+  transform: scale(0);
+  animation: ripple 0.6s ease-out;
+  pointer-events: none;
+}
+
+/* Typography */
+.text-gradient {
+  background: linear-gradient(135deg, var(--accent-purple), var(--accent-cyan));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Shimmer Effect */
+@keyframes shimmer {
+  0% { background-position: -1000px 0; }
+  100% { background-position: 1000px 0; }
+}
+
+.shimmer {
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.08),
+    transparent
+  );
+  background-size: 1000px 100%;
+  animation: shimmer 2s infinite;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(139, 92, 246, 0.3);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(139, 92, 246, 0.5);
+}
+
+/* Focus States */
+*:focus-visible {
+  outline: 2px solid var(--accent-purple);
+  outline-offset: 2px;
+}
+
+/* Loading Animation */
+@keyframes pulse-ring {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(139, 92, 246, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 0 15px rgba(139, 92, 246, 0);
+  }
+}
+
+.pulse-ring {
+  animation: pulse-ring 2s cubic-bezier(0.455, 0.03, 0.515, 0.955) infinite;
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
