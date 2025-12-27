@@ -35,7 +35,6 @@ const mapFrontendToRow = (data) => ({
 export async function GET(req) {
   try {
     const { searchParams } = new URL(req.url);
-    
     // 1. Fetch the list of ALL sheets dynamically
     const allSheets = await db.getSheets();
 
