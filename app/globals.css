@@ -27,20 +27,24 @@
 }
 
 :root {
+  /* Dark Mode Base Colors */
   --bg-primary: #0B0D10;
   --bg-secondary: #12151A;
   --surface: #1A1E24;
   --surface-glass: rgba(26, 30, 36, 0.5);
   
+  /* Text Colors */
   --text-primary: #E8EAED;
   --text-secondary: #9BA1A8;
   --text-tertiary: #6B7280;
   
+  /* Accents */
   --accent-purple: #8B5CF6;
   --accent-blue: #3B82F6;
   --accent-pink: #EC4899;
   --accent-cyan: #06B6D4;
   
+  /* Borders */
   --border: rgba(255, 255, 255, 0.06);
   --border-bright: rgba(255, 255, 255, 0.12);
 }
@@ -56,7 +60,8 @@ html, body {
   overflow-x: hidden;
   background: var(--bg-primary);
   color: var(--text-primary);
-  font-family: "NeueLeiden", -apple-system, BlinkMacSystemFont, sans-serif;
+  /* Use system fonts as fallback if NeueLeiden isn't loaded */
+  font-family: "NeueLeiden", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -72,7 +77,8 @@ body {
   color: white;
 }
 
-/* Glassmorphism */
+/* --- Glassmorphism Utilities --- */
+
 .glass {
   background: var(--surface-glass);
   backdrop-filter: blur(20px) saturate(180%);
@@ -87,7 +93,8 @@ body {
   border: 1px solid var(--border-bright);
 }
 
-/* Liquid Glass Button Effect */
+/* --- Liquid Glass Button --- */
+
 .liquid-glass-btn {
   position: relative;
   background: rgba(255, 255, 255, 0.05);
@@ -130,7 +137,6 @@ body {
   opacity: 1;
 }
 
-/* Liquid Glass Primary Variant */
 .liquid-glass-primary {
   background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(59, 130, 246, 0.2));
   border: 1px solid rgba(139, 92, 246, 0.3);
@@ -146,7 +152,8 @@ body {
     inset 0 1px 0 rgba(255, 255, 255, 0.2);
 }
 
-/* Subtle Card Glow - Much More Refined */
+/* --- Card Styles --- */
+
 .card-refined {
   position: relative;
   background: var(--surface);
@@ -178,7 +185,8 @@ body {
     0 0 0 1px rgba(139, 92, 246, 0.1);
 }
 
-/* Ripple Effect */
+/* --- Animation Utilities --- */
+
 @keyframes ripple {
   to {
     transform: scale(4);
@@ -195,7 +203,6 @@ body {
   pointer-events: none;
 }
 
-/* Typography */
 .text-gradient {
   background: linear-gradient(135deg, var(--accent-purple), var(--accent-cyan));
   -webkit-background-clip: text;
@@ -203,24 +210,19 @@ body {
   background-clip: text;
 }
 
-/* Shimmer Effect */
-@keyframes shimmer {
-  0% { background-position: -1000px 0; }
-  100% { background-position: 1000px 0; }
+.gradient-animated {
+  background: linear-gradient(270deg, #8B5CF6, #3B82F6, #EC4899);
+  background-size: 200% 200%;
+  animation: gradient-move 3s ease infinite;
 }
 
-.shimmer {
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(255, 255, 255, 0.08),
-    transparent
-  );
-  background-size: 1000px 100%;
-  animation: shimmer 2s infinite;
+@keyframes gradient-move {
+  0% { background-position: 0% 50% }
+  50% { background-position: 100% 50% }
+  100% { background-position: 0% 50% }
 }
 
-/* Scrollbar */
+/* --- Scrollbar --- */
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
@@ -239,31 +241,8 @@ body {
   background: rgba(139, 92, 246, 0.5);
 }
 
-/* Focus States */
+/* --- Misc --- */
 *:focus-visible {
   outline: 2px solid var(--accent-purple);
   outline-offset: 2px;
-}
-
-/* Loading Animation */
-@keyframes pulse-ring {
-  0%, 100% {
-    box-shadow: 0 0 0 0 rgba(139, 92, 246, 0.4);
-  }
-  50% {
-    box-shadow: 0 0 0 15px rgba(139, 92, 246, 0);
-  }
-}
-
-.pulse-ring {
-  animation: pulse-ring 2s cubic-bezier(0.455, 0.03, 0.515, 0.955) infinite;
-}
-
-/* Reduced Motion */
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
 }

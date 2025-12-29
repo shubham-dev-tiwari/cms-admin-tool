@@ -209,24 +209,24 @@ export default function NeuEditor({ value, onChange }) {
     editorProps: {
       attributes: {
         class: clsx(
-          "prose prose-invert prose-sm max-w-none",
+          "prose prose-sm max-w-none",
           "text-[var(--text-primary)] leading-relaxed",
           "focus:outline-none p-5",
           "[&_p]:mb-3 [&_p]:text-[var(--text-primary)]",
           "[&_h1]:text-[var(--text-primary)] [&_h1]:text-2xl [&_h1]:font-bold [&_h1]:mb-4",
           "[&_h2]:text-[var(--text-primary)] [&_h2]:text-xl [&_h2]:font-semibold [&_h2]:mb-3",
           "[&_h3]:text-[var(--text-primary)] [&_h3]:text-lg [&_h3]:font-semibold [&_h3]:mb-2",
-          "[&_strong]:text-[var(--accent-purple)] [&_strong]:font-bold",
-          "[&_em]:text-[var(--accent-cyan)] [&_em]:italic",
-          "[&_u]:text-[var(--accent-blue)] [&_u]:underline [&_u]:decoration-[var(--accent-blue)]",
+          "[&_strong]:!text-inherit [&_strong]:font-bold",
+          "[&_em]:!text-inherit [&_em]:italic",
+          "[&_u]:!text-inherit [&_u]:underline [&_u]:decoration-[var(--text-primary)]",
           "[&_ul]:list-disc [&_ul]:ml-6 [&_ul]:mb-3 [&_ul]:text-[var(--text-primary)]",
           "[&_ol]:list-decimal [&_ol]:ml-6 [&_ol]:mb-3 [&_ol]:text-[var(--text-primary)]",
           "[&_li]:mb-1.5 [&_li]:text-[var(--text-primary)]",
-          "[&_blockquote]:border-l-4 [&_blockquote]:border-[var(--accent-purple)] [&_blockquote]:pl-4 [&_blockquote]:italic [&_blockquote]:text-[var(--text-secondary)] [&_blockquote]:my-4",
-          "[&_code]:bg-[var(--surface)] [&_code]:text-[var(--accent-pink)] [&_code]:px-1.5 [&_code]:py-0.5 [&_code]:rounded [&_code]:text-sm",
+          "[&_blockquote]:border-l-4 [&_blockquote]:border-[var(--text-primary)] [&_blockquote]:pl-4 [&_blockquote]:italic [&_blockquote]:text-[var(--text-secondary)] [&_blockquote]:my-4",
+          "[&_code]:bg-[var(--surface)] [&_code]:text-[var(--text-primary)] [&_code]:px-1.5 [&_code]:py-0.5 [&_code]:rounded [&_code]:text-sm",
           "[&_pre]:bg-[var(--surface)] [&_pre]:p-4 [&_pre]:rounded-lg [&_pre]:overflow-x-auto [&_pre]:my-4",
           "[&_img]:rounded-lg [&_img]:my-4 [&_img]:border [&_img]:border-[var(--border)]",
-          "[&_a]:text-[var(--accent-blue)] [&_a]:underline [&_a]:hover:text-[var(--accent-cyan)]"
+          "[&_a]:text-[var(--text-primary)] [&_a]:underline [&_a]:hover:text-[var(--text-primary)]"
         ),
       },
     },

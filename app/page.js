@@ -40,30 +40,50 @@ const cardVariants = {
   }
 };
 
-// Input Component
-const Input = ({ label, register, name, required = false, type = "text" }) => {
+// --- UPDATED INPUT COMPONENT (Handles Errors) ---
+const Input = ({ label, register, name, required = false, type = "text", error }) => {
   const [focused, setFocused] = useState(false);
   
   return (
     <motion.div 
-      className="relative"
+      className="relative mb-4" 
       initial={{ opacity: 0, x: -20 }}
       animate={{ opacity: 1, x: 0 }}
     >
-      <label className="block text-xs font-semibold text-[var(--text-secondary)] uppercase tracking-wider mb-2 ml-1">
-        {label}
-      </label>
+      <div className="flex justify-between items-center mb-2 ml-1">
+        <label className="block text-xs font-semibold text-[var(--text-secondary)] uppercase tracking-wider">
+          {label} {required && <span className="text-red-400">*</span>}
+        </label>
+        {/* Error Message Display */}
+        {error && (
+          <span className="text-[10px] text-red-400 font-medium animate-pulse">
+            {error.message}
+          </span>
+        )}
+      </div>
+
       <input
-        {...register(name, { required })}
+        {...register(name, { 
+          // Custom validation message
+          required: required ? `${label} is required` : false 
+        })}
         type={type}
         onFocus={() => setFocused(true)}
         onBlur={() => setFocused(false)}
-        className={`w-full bg-[var(--surface)] border ${
-          focused ? 'border-[var(--accent-purple)]' : 'border-[var(--border)]'
-        } rounded-xl px-4 py-3 text-sm transition-all duration-300
-        focus:outline-none placeholder:text-[var(--text-tertiary)]`}
+        className={`w-full bg-[var(--surface)] border rounded-xl px-4 py-3 text-sm transition-all duration-300
+        focus:outline-none placeholder:text-[var(--text-tertiary)] ${
+          error 
+            ? 'border-red-500/50 focus:border-red-500' 
+            : focused 
+              ? 'border-[var(--accent-purple)]' 
+              : 'border-[var(--border)]'
+        }`}
         style={{
-          boxShadow: focused ? '0 0 0 3px rgba(139, 92, 246, 0.1)' : 'none'
+          boxShadow: error 
+            ? '0 0 0 3px rgba(239, 68, 68, 0.1)' 
+            : focused 
+              ? '0 0 0 3px rgba(139, 92, 246, 0.1)' 
+              : 'none'
         }}
         placeholder={`Enter ${label.toLowerCase()}...`}
       />
@@ -278,7 +298,9 @@ export default function CMSDashboard() {
   const [editingItem, setEditingItem] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
 
-  const { register, handleSubmit, reset, setValue, watch } = useForm();
+  // --- CHANGED: Extract 'errors' from formState ---
+  const { register, handleSubmit, reset, setValue, watch, formState: { errors } } = useForm();
+  
   const bodyTextValue = watch("body_text");
 
   const filteredData = data.filter(item =>
@@ -564,9 +586,29 @@ export default function CMSDashboard() {
                 <form onSubmit={handleSubmit(onSubmit)} className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                   {/* Left Column */}
                   <div className="space-y-4">
-                    <Input label="Serial No" name="s_no" register={register} required />
-                    <Input label="Brand Name" name="brand_name" register={register} required />
-                    <Input label="Slug" name="slug" register={register} required />
+                    {/* --- CHANGED: Passed specific errors to Inputs --- */}
+                    <Input 
+                        label="Serial No" 
+                        name="s_no" 
+                        register={register} 
+                        required 
+                        error={errors.s_no} 
+                    />
+                    <Input 
+                        label="Brand Name" 
+                        name="brand_name" 
+                        register={register} 
+                        required 
+                        error={errors.brand_name} 
+                    />
+                    <Input 
+                        label="Slug" 
+                        name="slug" 
+                        register={register} 
+                        required 
+                        error={errors.slug} 
+                    />
+                    
                     <Input label="Brand Logo URL" name="brand_logo" register={register} />
                     <Input label="Founder Name" name="Founder_name" register={register} />
                     <Input label="Founder Image" name="Founder_image" register={register} />
