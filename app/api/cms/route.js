@@ -13,11 +13,9 @@ const mapRowToFrontend = (row) => ({
   timeline: row.timeline,
   New_MRR: row.New_MRR,
   Cover_Image_link: row.Cover_Image_link,
-  
-  // Mapping based on your screenshot
   Cover_text: row.Cover_text_1 || row.Cover_text, 
   body_text: row.body_text_1 || row.body_text,
-  
+  client_location: row.client_location,
   Custom_CTA: row.Custom_CTA,
   SEO_meta_data: row.SEO_meta_data,
   Category_tags: row.Category_tags,

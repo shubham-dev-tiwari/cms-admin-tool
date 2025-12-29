@@ -5,13 +5,38 @@ import { useForm } from "react-hook-form";
 import { 
   RefreshCw, Plus, Save, Trash2, Edit3, Database, 
   Search, X, Sparkles, TrendingUp, Zap,
-  BarChart3, Clock, Users, ArrowUpRight
+  BarChart3, Clock, Users, ArrowUpRight , Youtube
 } from "lucide-react";
 import { motion, AnimatePresence, useMotionValue, useSpring } from "framer-motion";
 import dynamic from 'next/dynamic';
-
+import NeuDropdown from "@/components/NeuDropdown"
+import NeuMultiDropdown from "@/components/NeuMultiDropdown";
 const NeuEditor = dynamic(() => import('@/components/NeuEditor'), { ssr: false });
 
+
+const NATIONALITY = [
+  { code: 'US', label: 'United States', icon: '🇺🇸' },
+  { code: 'IN', label: 'India', icon: '🇮🇳' },
+  { code: 'GB', label: 'United Kingdom', icon: '🇬🇧' },
+  { code: 'CA', label: 'Canada', icon: '🇨🇦' },
+  { code: 'AU', label: 'Australia', icon: '🇦🇺' },
+  { code: 'DE', label: 'Germany', icon: '🇩🇪' },
+];
+const TAGS = [
+  { code: 'MAD', label: 'Meta_ads', icon: '' },
+  { code: 'INS', label: 'Instagram', icon: '' },
+  { code: 'YOU', label: 'Youtube', icon: '' },
+  { code: 'TIT', label: 'Tiktok', icon: '' },
+  { code: 'MAR', label: 'Market Research', icon: '' },
+  { code: 'SCP', label: 'Scientific Positioning', icon: '' },
+];
+const CATEGORY_TAGS = [
+  { code: 'FA', label: 'Fashion', icon: '' },
+  { code: 'EC', label: 'eCommerce', icon: '' },
+  { code: 'LF', label: 'Lifestyle', icon: '' },
+  { code: 'JW', label: 'Jewellery', icon: '' },
+  { code: 'CO', label: 'Consulting', icon: '' },
+];
 // Animations
 const staggerContainer = {
   animate: {
@@ -190,10 +215,13 @@ const Card = ({ item, onEdit, onDelete, index }) => {
     <motion.div
       ref={cardRef}
       variants={cardVariants}
+      initial="initial"
+      animate="animate"
+      exit="exit"
       custom={index}
       layout
       onMouseMove={handleMouseMove}
-      className="card-refined rounded-2xl p-6 relative overflow-hidden group cursor-pointer"
+      className="card-refined rounded-2xl p-6 relative overflow-hidden group cursor-pointer !transition-none"
     >
       {/* Subtle Spotlight Effect */}
       <motion.div
@@ -299,15 +327,24 @@ export default function CMSDashboard() {
   const [searchQuery, setSearchQuery] = useState("");
 
   // --- CHANGED: Extract 'errors' from formState ---
-  const { register, handleSubmit, reset, setValue, watch, formState: { errors } } = useForm();
+  const { register, handleSubmit, reset, setValue, watch, formState: { errors } } = useForm(
+    {
+      defaultValues: {
+        target_tags:[]
+      }
+    }
+  );
   
   const bodyTextValue = watch("body_text");
+  const clientLocationValue = watch("client_location");
+  const tagValue = watch("target_tags");
+  const categoryTagValue = watch("Category_tags");
 
   const filteredData = data.filter(item =>
-    item.brand_name?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    item.Category_tags?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    item.Founder_name?.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  (item.brand_name || "").toLowerCase().includes(searchQuery.toLowerCase()) ||
+  (item.Category_tags || "").toLowerCase().includes(searchQuery.toLowerCase()) ||
+  (item.Founder_name || "").toLowerCase().includes(searchQuery.toLowerCase())
+);
 
   const fetchData = async (sheetName) => {
     setLoading(true);
@@ -340,26 +377,62 @@ export default function CMSDashboard() {
 
   const openAddModal = () => {
     setEditingItem(null);
-    reset({});
+    reset({s_no: "", // Auto-generate next serial number
+        brand_name: "",
+        slug: "",
+        brand_logo: "",
+        Founder_name: "",
+        Founder_image: "",
+        Cover_Image_link: "",
+        target_tags: [], 
+        client_location: "",
+        body_text: "",
+        OLD_MRR: "",
+        New_MRR: "",
+        timeline: "",
+        Cover_text: "",
+        Custom_CTA: "",
+        tag: "",
+        Category_tags: "",
+        SEO_meta_data: ""
+      });
     setValue("s_no", (data.length + 1).toString());
     setIsModalOpen(true);
   };
-
+  const stringToArray = (str) => {
+    let targetArray = [];
+    if (str && typeof(str) === 'string') {
+      targetArray = str.split(',');
+    }
+    return targetArray;
+  }
   const openEditModal = (item) => {
     setEditingItem(item);
     reset(item);
+    const tags_array = stringToArray(item.tag);
+    setValue("target_tags",tags_array);
     setValue("body_text", item.body_text || "");
     setIsModalOpen(true);
   };
 
   const onSubmit = async (formData) => {
     setLoading(true);
+
+    const payload = { ...formData };
+    if (Array.isArray(payload.target_tags)) {
+      payload.tag = payload.target_tags.join(',');
+    }
+    else
+    {
+      payload.tag = "";
+    }
+    delete payload.target_tags;
     const action = editingItem ? "UPDATE" : "CREATE";
     
     if (action === "CREATE") {
-      setData([...data, formData]);
+      setData([...data, payload]);
     } else {
-      setData(data.map(item => item.s_no === formData.s_no ? formData : item));
+      setData(data.map(item => item.s_no === payload.s_no ? payload : item));
     }
     setIsModalOpen(false);
 
@@ -367,7 +440,7 @@ export default function CMSDashboard() {
       await fetch("/api/cms", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ sheetName: currentSheet, data: formData, action })
+        body: JSON.stringify({ sheetName: currentSheet, data: payload, action })
       });
       await fetchData(currentSheet);
     } catch (err) {
@@ -431,10 +504,10 @@ export default function CMSDashboard() {
               </motion.div>
               <div>
                 <div className="flex items-center gap-2">
-                  <h1 className="text-3xl font-bold text-gradient">SheetCMS</h1>
+                  <h1 className="text-3xl font-bold text-gradient">Arlox Admin CMS</h1>
                   <Sparkles size={18} className="text-[var(--accent-purple)]" />
                 </div>
-                <p className="text-sm text-[var(--text-secondary)] mt-0.5">Premium Content Management</p>
+                <p className="text-sm text-[var(--text-secondary)] mt-0.5">All in one CMS solution</p>
               </div>
             </div>
 
@@ -612,8 +685,16 @@ export default function CMSDashboard() {
                     <Input label="Brand Logo URL" name="brand_logo" register={register} />
                     <Input label="Founder Name" name="Founder_name" register={register} />
                     <Input label="Founder Image" name="Founder_image" register={register} />
-                    <Input label="Category Tags" name="Category_tags" register={register} />
+                    
                     <Input label="Cover Image" name="Cover_Image_link" register={register} />
+                    <NeuDropdown
+                      label = "Nationality"
+                      value = {clientLocationValue}
+                      optionSet={NATIONALITY}
+                      onChange={(val) => setValue("client_location", val, { shouldValidate: true })}
+                      required
+                      error={errors.client_location}
+                    />
                   </div>
 
                   {/* Middle Column */}
@@ -625,7 +706,22 @@ export default function CMSDashboard() {
                     <Input label="Timeline" name="timeline" register={register} />
                     <Input label="Cover Text" name="Cover_text" register={register} />
                     <Input label="Custom CTA" name="Custom_CTA" register={register} />
-                    <Input label="Tags" name="tag" register={register} />
+                    <NeuMultiDropdown
+                      label = "Tags"
+                      placeholder="Select platforms..."
+                      value = {tagValue}
+                      optionSet={TAGS}
+                      onChange={(val) => setValue("target_tags", val, { shouldValidate: true, shouldDirty:true })}
+                      error={errors.client_location}
+                    />
+                    <NeuDropdown
+                      label = "Category Tags"
+                      value = {categoryTagValue}
+                      optionSet={CATEGORY_TAGS}
+                      onChange={(val) => setValue("Category_tags", val, { shouldValidate: true })}
+                      required
+                      error={errors.client_location}
+                    />
                     <Input label="SEO Meta" name="SEO_meta_data" register={register} />
                   </div>
 

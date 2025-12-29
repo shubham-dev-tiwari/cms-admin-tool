@@ -209,7 +209,7 @@ export default function NeuEditor({ value, onChange }) {
     editorProps: {
       attributes: {
         class: clsx(
-          "prose prose-sm max-w-none",
+          "prose prose-invert prose-sm max-w-none",
           "text-[var(--text-primary)] leading-relaxed",
           "focus:outline-none p-5",
           "[&_p]:mb-3 [&_p]:text-[var(--text-primary)]",
